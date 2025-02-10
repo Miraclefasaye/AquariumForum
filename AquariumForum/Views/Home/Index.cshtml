@@ -1,0 +1,34 @@
+﻿@model IEnumerable<AquariumForum.ViewModels.DiscussionViewModel>
+    @{
+    ViewData["Title"] = "Home Page";
+    }
+
+    <h1>Discussion Threads</h1>
+
+    <a asp-action="Create" asp-controller="Discussion" class="btn btn-primary">Create New Discussion</a>
+
+    <div class="list-group">
+        @foreach (var discussion in Model)
+    {
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-md-2">
+                    @if (!string.IsNullOrEmpty(discussion.ImageFilename))
+                    {
+                    <img src="~/images/@discussion.ImageFilename" alt="Discussion Image"
+                         class="img-thumbnail" style="width: 100px; height: auto;" />
+                    }
+                </div>
+                <div class="col-md-8">
+                    <h4>
+                        <a asp-action="GetDiscussion" asp-controller="Home" asp-route-id="@discussion.DiscussionId">
+                            @discussion.Title
+                        </a>
+                    </h4>
+                    <p>Comments: @discussion.CommentCount</p>
+                    <p>Created on: @discussion.CreateDate.ToString("MMM dd, yyyy h:mm tt")</p>
+                </div>
+            </div>
+        </div>
+    }
+    </div>

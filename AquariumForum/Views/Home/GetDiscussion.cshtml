@@ -1,0 +1,41 @@
+﻿@model AquariumForum.Models.Discussion
+
+@{
+    ViewData["Title"] = "Discussion Details";
+}
+
+<h2>@Model.Title</h2>
+<p>@Model.Content</p>
+
+@if (!string.IsNullOrEmpty(Model.ImageFilename))
+{
+<img src="~/images/@Model.ImageFilename" alt="Discussion Image" class="img-fluid" />
+}
+
+<hr>
+
+<h3>Comments</h3>
+
+<!-- Link to create a new comment -->
+<p>
+    <a asp-controller="Comments" asp-action="Create" asp-route-discussionId="@Model.DiscussionId" class="btn btn-primary">
+        Add Comment
+    </a>
+</p>
+
+@if (Model.Comments.Any())
+{
+<ul class="list-group">
+    @foreach (var comment in Model.Comments)
+        {
+    <li class="list-group-item">
+        <p>@comment.Content</p>
+        <small class="text-muted">Created on: @comment.CreateDate.ToString("MMM dd, yyyy h:mm tt")</small>
+    </li>
+        }
+</ul>
+}
+else
+{
+<p>No comments yet. Be the first to comment!</p>
+}

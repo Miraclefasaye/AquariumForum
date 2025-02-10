@@ -1,0 +1,69 @@
+@model AquariumForum.Models.Discussion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Discussion</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <!-- Modify this part to show the image -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageFilename)
+        </dt>
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.ImageFilename))
+            {
+            <img src="~/images/@Model.ImageFilename" alt="Discussion Image" style="width: 500px; height: auto;" />
+            }
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+    </dl>
+</div>
+
+<h4>Comments</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Content</th>
+            <th>Create Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var comment in Model.Comments)
+        {
+        <tr>
+            <td>@comment.Content</td>
+            <td>@comment.CreateDate</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.DiscussionId">Edit</a> |
+    <a asp-action="Index">Back to List</a> |
+    <a asp-controller="Comments" asp-action="Create" asp-route-discussionId="@Model.DiscussionId">Add Comment</a>
+</div>

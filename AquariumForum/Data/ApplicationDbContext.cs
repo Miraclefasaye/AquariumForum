@@ -19,7 +19,7 @@ namespace AquariumForum.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+             
             // Configure the one-to-many relationship
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Discussion)
